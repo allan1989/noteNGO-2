@@ -1,23 +1,42 @@
-# ignore everything in the root except the "wp-content" directory.
-!wp-content/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# ignore everything in the "wp-content" directory, except:
-# "mu-plugins", "plugins", "themes" directory
-wp-content/*
-!wp-content/mu-plugins/
-!wp-content/plugins/
-!wp-content/themes/
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
-# ignore these plugins
-wp-content/plugins/hello.php
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
 
-# ignore specific themes
-wp-content/themes/twenty*/
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# ignore node dependency directories
-node_modules/
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
-# ignore log files and databases
-*.log
-*.sql
-*.sqlite
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
