@@ -1,25 +1,29 @@
 import { Injectable } from "@angular/core";
-import { Actions, ofType, createEffect  } from "@ngrx/effects";
-import { catchError, mergeMap, map, delay } from 'rxjs/operators';
-import { checkLocalStorage, checkLocalStorageSuccess, showAddEditNoteToast } from '../actions/actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concat, Observable, of } from 'rxjs';
+import { map, mergeMap, catchError, delay, switchMap, concatMap, concatAll } from 'rxjs/operators';
 import { NoteService } from "src/services/note.service";
-import { EmptyError, Observable, of } from "rxjs";
+//import { showHideNoteToast, showAddEditNoteToastSuccess, hideAddEditNoteToastSuccess } from "../actions/actions";
+import { Store } from "@ngrx/store";
 
 @Injectable()
-export class LocalStorageEffect {
+export class noteEffects {
+
+  // showNoteToast$ = createEffect(() =>
+  //   this.action$.pipe(
+  //     ofType(showHideNoteToast),
+  //     switchMap(() => this.noteService.showAddEditNoteToast()
+  //       .pipe(
+  //         map(() => (this.store.dispatch(showAddEditNoteToastSuccess())))
+  //       )
+  //     )
+  //   )
+  // )
+
 
   constructor(
-    private actions$ : Actions,
-    private noteService: NoteService
-  ){}
-
-  localStorage$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(checkLocalStorage),
-      mergeMap(() => this.noteService.checkIfLocalStorageExists()
-      .pipe(
-        map((response) => checkLocalStorageSuccess({canUseLocalStorage: response.canUse, data: response.notes}))
-      ))
-    )
-  )
+    private action$: Actions,
+    private noteService: NoteService,
+    private store: Store
+  ) { }
 }

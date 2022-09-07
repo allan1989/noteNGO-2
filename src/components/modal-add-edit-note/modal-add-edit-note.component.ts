@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { 
-  selectNotes, 
-  selectSingleNoteForModal, 
-  addEditNoteModal, 
+import {
+  selectNotes,
+  selectSingleNoteForModal,
+  addEditNoteModal,
   AddEditNoteModalMode,
-  getSelectedNoteId 
+  getSelectedNoteId
 } from 'src/app/reducers/selectors/selectors';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -26,7 +26,7 @@ export class ModalAddEditNoteComponent implements OnInit {
 
   public noteForm!: FormGroup;
   public submitted: boolean = false;
-  public currentNote:  Observable<INote[]>;
+  public currentNote: Observable<INote[]>;
 
   public currentNotes: INote[];
   public currentNoteId: number;
@@ -38,27 +38,28 @@ export class ModalAddEditNoteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this.hasNotes$ = this.store.pipe(select(selectNotes));
-      this.showAddEditNoteModal$ = this.store.pipe(select(addEditNoteModal));
-      this.isAddMode$ = this.store.pipe(select(AddEditNoteModalMode));
-      this.currentNote = this.store.pipe(select(selectSingleNoteForModal))
+    this.hasNotes$ = this.store.pipe(select(selectNotes));
+    this.showAddEditNoteModal$ = this.store.pipe(select(addEditNoteModal));
+    this.isAddMode$ = this.store.pipe(select(AddEditNoteModalMode));
+    this.currentNote = this.store.pipe(select(selectSingleNoteForModal));
 
-      this.noteForm = this.formBuilder.group({
-        title: ['', [Validators.required, this.noWhitespaceValidator]],
-        body: ['', [Validators.required, this.noWhitespaceValidator]],
-        priority: ['', [Validators.required]]
-      })
+    this.noteForm = this.formBuilder.group({
+      title: ['', [Validators.required, this.noWhitespaceValidator]],
+      body: ['', [Validators.required, this.noWhitespaceValidator]],
+      priority: ['', [Validators.required]]
+    });
 
-     
-      this.isAddMode$.subscribe(
-        mode => {
-          if(!mode) {
-            this.patchFormFields()
-          }else {
-            this.noteForm.reset()
-          }
+
+    this.isAddMode$.subscribe(
+      isAddMode => {
+        if (!isAddMode) {
+          this.patchFormFields()
         }
-      )
+        else {
+          this.noteForm.reset();
+        }
+      }
+    )
   }
 
   public noWhitespaceValidator(control: FormControl) {
@@ -68,24 +69,22 @@ export class ModalAddEditNoteComponent implements OnInit {
   }
 
   hideModal() {
-    this.store.dispatch(showAddEditNoteModal({ 
-        showAddEditNoteModal: false,
-        isAddMode: true
-      }
-    ));
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: false }));
   }
 
   createNewNote() {
-    if(this.noteForm.invalid) {
+    if (this.noteForm.invalid) {
       return;
-    }else {
-      let id = Math.floor(Math.random() * Date.now()); 
+    } else {
+      let id = Math.floor(Math.random() * Date.now());
       this.noteForm.value.id = id;
       this.noteService.addNote(this.noteForm.value);
+      this.noteForm.reset();
     }
   }
 
-  updateNote():void {
+  updateNote(): void {
+    console.log('modal add/edit note updateNote()')
     this.store.pipe(select(selectNotes)).subscribe(
       notes => this.currentNotes = notes
     )
@@ -96,23 +95,25 @@ export class ModalAddEditNoteComponent implements OnInit {
 
     this.currentNotes = this.currentNotes.map(
       note => {
-        if(note.id === this.currentNoteId) {
+        if (note.id === this.currentNoteId) {
           return {
             title: this.noteForm.value.title,
             body: this.noteForm.value.body,
             priority: this.noteForm.value.priority,
             id: this.currentNoteId
           }
-        }else{
+        } else {
           return note
         }
       }
     )
+    this.noteForm.reset();
 
     this.noteService.updateNote(this.currentNotes);
+
   }
 
-  patchFormFields() { 
+  patchFormFields() {
     this.currentNote.subscribe(
       note => {
         this.noteForm.patchValue({
@@ -125,17 +126,13 @@ export class ModalAddEditNoteComponent implements OnInit {
     )
   }
 
-  onSubmit() {
+  onSubmitCreateNewNote() {
     this.submitted = true;
+    this.createNewNote();
+  }
 
-    this.isAddMode$.subscribe(
-      mode => {
-        if(mode) {
-          this.createNewNote();
-        }else {
-          this.updateNote();
-        }
-      }
-    )
+  onSubmitUpdateNote() {
+    this.submitted = true;
+    this.updateNote();
   }
 }

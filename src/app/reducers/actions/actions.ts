@@ -1,49 +1,29 @@
 import { createAction, props } from "@ngrx/store";
 import { INote } from "src/services/note.model";
 
-export const checkLocalStorage = createAction(
-  '[ LOCALSTORAGE ] Check'
-);
-
-export const checkLocalStorageSuccess = createAction(
-  '[ LOCALSTORAGE ] Success',
-  props<{ canUseLocalStorage: boolean, data: INote[]}>()
-);
-
-export const checkLocalStorageError = createAction(
-  '[ LOCALSTORAGE ] Error'
-);
-
-export const addToLocalStorage = createAction(
-  '[ LOCALSTORAGE ] Add'
-);
-
-export const addToLocalStorageSucess = createAction(
-  '[ LOCALSTORAGE ] Add Success'
-);
 
 export const removeNote = createAction(
   '[ NOTES ] Remove Note',
-  props<{ selectedNoteId: number}>() 
+  props<{ selectedNoteId: number }>()
 );
 
 export const getNoteId = createAction(
   '[ NOTES ] GET NOTE ID',
-  props<{ selectedNoteId: number}>() 
+  props<{ selectedNoteId: number }>()
 );
 
 export const removeNoteSuccess = createAction(
-  '[ NOTES ] Remove Note Success' 
+  '[ NOTES ] Remove Note Success'
 );
 
 export const showRemoveNoteModal = createAction(
   '[ REMOVE NOTE MODAL ] Show Remove Note Modal',
-  props<{ selectedNoteId: number, showRemoveNoteModal: boolean}>()
+  props<{ selectedNoteId: number, showRemoveNoteModal: boolean }>()
 );
 
 export const hideRemoveNoteModal = createAction(
   '[ REMOVE NOTE MODAL ] Hide Remove Note Modal',
-  props<{ showRemoveNoteModal: boolean}>()
+  props<{ showRemoveNoteModal: boolean }>()
 )
 
 export const addNote = createAction(
@@ -58,13 +38,19 @@ export const updateNote = createAction(
 
 export const showAddEditNoteModal = createAction(
   '[ ADD/EDIT NOTE MODAL ]',
-  props<{ showAddEditNoteModal: boolean, isAddMode: boolean }>()
+  props<{ showAddEditNoteModal: boolean }>()
+)
+
+export const setFromMode = createAction(
+  '[ ADD/EDIT NOTE MODAL MODE ]',
+  props<{ isAddMode: boolean }>()
 )
 
 export const showAddEditNoteToast = createAction(
-  '[ SHOW ADD/EDIT NOTE TOAST ]'
+  '[ SHOW NOTE TOAST ]',
+  props<{ showAddEditNoteToast: boolean }>()
 )
 
 export const hideAddEditNoteToast = createAction(
-  '[ HIDE ADD/EDIT NOTE TOAST ]'
+  '[ HIDE NOTE TOAST ]'
 )

@@ -3,25 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from 'src/components/header/header.component';
 import { HomeModule } from 'src/components/home/home.module';
-import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { notesReducer } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { LocalStorageEffect } from './reducers/effects/effects';
-import { Initialstate } from './reducers';
+import { noteEffects } from './reducers/effects/effects';
 
-// save into localStorage
-export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
-  return function(state = Initialstate, action) {
-    if(state.notes) {
-      localStorage.setItem('notes', JSON.stringify(state.notes.data));
-    }
-    return reducer(state, action);
-  };
-}
-
-export const metaReducers: MetaReducer<any>[] = [debug];
 
 @NgModule({
   declarations: [
@@ -31,8 +19,8 @@ export const metaReducers: MetaReducer<any>[] = [debug];
   imports: [
     BrowserModule,
     HomeModule,
-    StoreModule.forRoot( {notes: notesReducer }, {metaReducers}),
-    EffectsModule.forRoot([LocalStorageEffect]),
+    EffectsModule.forRoot([noteEffects]),
+    StoreModule.forRoot({ notes: notesReducer }, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],

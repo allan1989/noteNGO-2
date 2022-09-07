@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { 
-  showRemoveNoteModal, 
-  hideRemoveNoteModal, 
-  removeNote, 
-  addNote, 
+import { EMPTY, Observable, of } from 'rxjs';
+import {
+  showRemoveNoteModal,
+  hideRemoveNoteModal,
+  removeNote,
+  addNote,
   updateNote,
   showAddEditNoteModal,
-  showAddEditNoteToast, 
-  getNoteId
+  getNoteId,
+  hideAddEditNoteToast,
+  showAddEditNoteToast,
+  setFromMode
 } from 'src/app/reducers/actions/actions';
 import { Store } from '@ngrx/store';
 import { State } from '../app/reducers/index';
 import { INote } from './note.model';
-import { hideAddEditNoteToast } from 'src/app/reducers/actions/actions';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,109 +23,57 @@ import { hideAddEditNoteToast } from 'src/app/reducers/actions/actions';
 export class NoteService {
 
   constructor(
-    private store: Store<State>
+    private store: Store<State>,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
-  canUseLocalStorage$: Observable<any>; 
-
-
-  checkIfLocalStorageExists() {
-    const dataFromStorage = localStorage.getItem('notes');
-    if(typeof localStorage !== 'undefined'){
-      if(localStorage.getItem('notes') !== null && localStorage.getItem('notes')?.length) {
-
-        this.canUseLocalStorage$ = of({
-          canUse: true,
-          notes: [
-          {
-            id: 8,
-            title : "title 8",
-            priority : "elevee",
-            body: 'Curabitur mattis aliquam diam quis lobortis'
-          },
-          {
-            id: 9,
-            title : "title 9",
-            priority : "elevee",
-            body: 'Curabitur mattis aliquam diam quis lobortis'
-          }]
-        });
-        return this.canUseLocalStorage$;
-
-      }
-      if(localStorage.getItem('notes') === null) {
-        localStorage.setItem('notes', JSON.stringify({}))
-        
-        this.canUseLocalStorage$ = of({
-          canUse: true,
-          notes: [
-          {
-            id: 8,
-            title : "title 8",
-            priority : "elevee",
-            body: 'Curabitur mattis aliquam diam quis lobortis'
-          },
-          {
-            id: 9,
-            title : "title 9",
-            priority : "elevee",
-            body: 'Curabitur mattis aliquam diam quis lobortis'
-          }]
-        });
-        return this.canUseLocalStorage$;
-     
-      }
-    }
-    return this.canUseLocalStorage$;
+  showDeleteNoteModal(id: number) {
+    this.store.dispatch(showRemoveNoteModal({ selectedNoteId: id, showRemoveNoteModal: true }))
   }
 
-  showDeleteNoteModal(id:number) {
-    this.store.dispatch(showRemoveNoteModal({selectedNoteId: id, showRemoveNoteModal: true}))
-  }
- 
   hideDeleteNoteModal() {
-    this.store.dispatch(hideRemoveNoteModal({ showRemoveNoteModal: false}));
+    this.store.dispatch(hideRemoveNoteModal({ showRemoveNoteModal: false }));
   }
 
-  deleteNote(id:number) {
-    this.store.dispatch(removeNote({selectedNoteId: id}));
+  deleteNote(id: number) {
+    this.store.dispatch(removeNote({ selectedNoteId: id }));
     this.hideDeleteNoteModal();
   }
 
+  showAddEditNoteModal() {
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
+  }
+
   showAddEditModalForUpdating(id: number) {
-    this.store.dispatch(showAddEditNoteModal({
-      showAddEditNoteModal: true,
-      isAddMode: false
-    }));
-    this.store.dispatch(getNoteId(
-      {selectedNoteId: id}
-    ))
+    console.log('showAddEditModalForUpdating')
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
+    this.store.dispatch(getNoteId({ selectedNoteId: id }));
+    this.store.dispatch(setFromMode({ isAddMode: false }));
   }
 
   showAddEditModalForCreating() {
-    this.store.dispatch(showAddEditNoteModal({
-      showAddEditNoteModal: true,
-      isAddMode: true
-    }))
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }))
   }
 
-  addNote(obj:INote) {
-    this.store.dispatch(addNote({note: obj}));
-    this.store.dispatch(showAddEditNoteModal({
-      showAddEditNoteModal: false,
-      isAddMode: true
-    }));
-    this.store.dispatch(showAddEditNoteToast());
-    setTimeout(() => this.store.dispatch(hideAddEditNoteToast()), 5000);
+  addNote(obj: INote) {
+    this.store.dispatch(addNote({ note: obj }));
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: false }));
+    this.store.dispatch(showAddEditNoteToast({ showAddEditNoteToast: true }));
+    setTimeout(
+      () => this.store.dispatch(hideAddEditNoteToast()),
+      5000
+    )
   }
 
   updateNote(notesArr: INote[]) {
-    this.store.dispatch(updateNote({notes: notesArr}));
-    this.store.dispatch(showAddEditNoteModal({
-      showAddEditNoteModal: false,
-      isAddMode: false
-    }));
-    this.store.dispatch(showAddEditNoteToast());
-    setTimeout(() => this.store.dispatch(hideAddEditNoteToast()), 5000);
+    this.store.dispatch(updateNote({ notes: notesArr }));
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: false }));
+    this.store.dispatch(showAddEditNoteToast({ showAddEditNoteToast: true }));
+    this.router.navigate([`notes/${notesArr[0].priority}`], { relativeTo: this.route })
+    setTimeout(
+      () => this.store.dispatch(hideAddEditNoteToast()),
+      5000
+    )
   }
 }

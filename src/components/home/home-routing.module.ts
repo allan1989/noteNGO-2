@@ -7,17 +7,20 @@ import { NotFoundComponent } from 'src/components/not-found/not-found.component'
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/notes', pathMatch: 'full'},
-  { path: 'notes', 
-      component: HomeComponent, 
-      children: [
-        { path: ':priority',
-          component: NotePreviewComponent, 
-          children: [
-            {path: ':id', component: NoteFullComponent}
-          ] 
-        }
-      ] 
+  { path: '', redirectTo: '/notes', pathMatch: 'full' },
+  {
+    path: 'notes',
+    component: HomeComponent,
+    children: [
+      {
+        path: ':priority',
+        component: NotePreviewComponent,
+        data: { view: 'NotePreview' },
+        children: [
+          { path: ':id', component: NoteFullComponent }
+        ]
+      }
+    ]
   },
   { path: '**', component: NotFoundComponent }
 ];
