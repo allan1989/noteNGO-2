@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { INote  } from 'src/services/note.model';
+import { INote } from 'src/services/note.model';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { selectSingleNote } from 'src/app/reducers/selectors/selectors';
@@ -12,13 +12,13 @@ import { selectSingleNote } from 'src/app/reducers/selectors/selectors';
 })
 export class NoteFullComponent implements OnInit, OnDestroy {
 
+  private sub: Subscription;
+  public note$: Observable<INote[]>;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store
   ) { }
-
-  private sub: Subscription;
-  public note$: Observable<INote[]>;
 
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe(
@@ -31,5 +31,4 @@ export class NoteFullComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe()
   }
-
 }

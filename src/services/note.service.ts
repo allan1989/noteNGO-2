@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, of } from 'rxjs';
 import {
   showRemoveNoteModal,
   hideRemoveNoteModal,
@@ -46,7 +45,6 @@ export class NoteService {
   }
 
   showAddEditModalForUpdating(id: number) {
-    console.log('showAddEditModalForUpdating')
     this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
     this.store.dispatch(getNoteId({ selectedNoteId: id }));
     this.store.dispatch(setFromMode({ isAddMode: false }));
@@ -56,13 +54,14 @@ export class NoteService {
     this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }))
   }
 
-  addNote(obj: INote) {
-    this.store.dispatch(addNote({ note: obj }));
+  addNote(note: INote) {
+    this.store.dispatch(addNote({ note: note }));
     this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: false }));
     this.store.dispatch(showAddEditNoteToast({ showAddEditNoteToast: true }));
+    this.router.navigate([`notes/${note.priority}`], { relativeTo: this.route })
     setTimeout(
       () => this.store.dispatch(hideAddEditNoteToast()),
-      5000
+      2000
     )
   }
 
@@ -73,7 +72,7 @@ export class NoteService {
     this.router.navigate([`notes/${notesArr[0].priority}`], { relativeTo: this.route })
     setTimeout(
       () => this.store.dispatch(hideAddEditNoteToast()),
-      5000
+      2000
     )
   }
 }

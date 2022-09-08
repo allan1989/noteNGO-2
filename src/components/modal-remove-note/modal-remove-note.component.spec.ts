@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModalRemoveNoteComponent } from './modal-remove-note.component';
 
 describe('ModalRemoveNoteComponent', () => {
@@ -8,9 +7,9 @@ describe('ModalRemoveNoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalRemoveNoteComponent ]
+      declarations: [ModalRemoveNoteComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

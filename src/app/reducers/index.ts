@@ -1,10 +1,4 @@
 import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer,
-  Action,
   createReducer,
   on
 } from '@ngrx/store';
@@ -60,5 +54,3 @@ export const notesReducer = createReducer(
     ...state, showAddEditNoteToast: false
   }))
 )
-
-

@@ -43,12 +43,19 @@ export class ModalAddEditNoteComponent implements OnInit {
     this.isAddMode$ = this.store.pipe(select(AddEditNoteModalMode));
     this.currentNote = this.store.pipe(select(selectSingleNoteForModal));
 
+    this.store.pipe(select(selectNotes)).subscribe(
+      notes => this.currentNotes = notes
+    )
+
+    this.store.pipe(select(getSelectedNoteId)).subscribe(
+      id => this.currentNoteId = id
+    )
+
     this.noteForm = this.formBuilder.group({
       title: ['', [Validators.required, this.noWhitespaceValidator]],
       body: ['', [Validators.required, this.noWhitespaceValidator]],
       priority: ['', [Validators.required]]
     });
-
 
     this.isAddMode$.subscribe(
       isAddMode => {
@@ -84,15 +91,6 @@ export class ModalAddEditNoteComponent implements OnInit {
   }
 
   updateNote(): void {
-    console.log('modal add/edit note updateNote()')
-    this.store.pipe(select(selectNotes)).subscribe(
-      notes => this.currentNotes = notes
-    )
-
-    this.store.pipe(select(getSelectedNoteId)).subscribe(
-      id => this.currentNoteId = id
-    )
-
     this.currentNotes = this.currentNotes.map(
       note => {
         if (note.id === this.currentNoteId) {
@@ -108,9 +106,7 @@ export class ModalAddEditNoteComponent implements OnInit {
       }
     )
     this.noteForm.reset();
-
     this.noteService.updateNote(this.currentNotes);
-
   }
 
   patchFormFields() {

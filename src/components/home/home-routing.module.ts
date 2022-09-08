@@ -5,7 +5,6 @@ import { NotePreviewComponent } from 'src/components/note-preview/note-preview.c
 import { NoteFullComponent } from 'src/components/note-full/note-full.component';
 import { NotFoundComponent } from 'src/components/not-found/not-found.component';
 
-
 const routes: Routes = [
   { path: '', redirectTo: '/notes', pathMatch: 'full' },
   {
@@ -15,7 +14,6 @@ const routes: Routes = [
       {
         path: ':priority',
         component: NotePreviewComponent,
-        data: { view: 'NotePreview' },
         children: [
           { path: ':id', component: NoteFullComponent }
         ]

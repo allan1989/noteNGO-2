@@ -1,4 +1,4 @@
-import { createSelector, createFeatureSelector, StateObservable } from "@ngrx/store";
+import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { INote } from "src/services/note.model";
 import { State } from "../index";
 
@@ -12,7 +12,7 @@ export const selectNotesFeature = createFeatureSelector<State>(featureKey);
 // return an array of objects (INote)
 export const selectNotes = createSelector(
   selectNotesFeature,
-  (state: State) => state.data 
+  (state: State) => state.data
 );
 
 // show or hide remove note modal
@@ -29,27 +29,29 @@ export const selectedNoteId = createSelector(
 )
 
 // filter notes by priority
-export const selectNotesByPriority = (priority: string) => 
+export const selectNotesByPriority = (priority: string) =>
   createSelector(
     selectNotes,
     (notes) => notes.filter(note => note.priority === priority)
   )
 
+// filter note by id
 // id comes from route parameters
-export const selectSingleNote = (id: number) => 
+export const selectSingleNote = (id: number) =>
   createSelector(
     selectNotes,
     (notes) => notes.filter(note => note.id === id)
   )
 
+// filter note by id
 // id comes from global state
 export const selectSingleNoteForModal = createSelector(
   selectNotes,
   selectedNoteId,
   (notes: INote[], selectedNoteId: number) => {
-    if(notes && selectedNoteId) {
+    if (notes && selectedNoteId) {
       return notes.filter((note: INote) => note.id === selectedNoteId)
-    }else {
+    } else {
       return notes
     }
   }
@@ -63,14 +65,14 @@ export const addEditNoteModal = createSelector(
 )
 
 // When calling the modal AddEditNote
-// Setting the mode to Add or Edit
-
+// get the mode (Add or Edit)
 export const AddEditNoteModalMode = createSelector(
   selectNotesFeature,
   (notes) => notes.isAddMode
 )
 
-// display toast notification
+// show or hide toast notification
+// return a boolean
 export const showAddEditNoteToast = createSelector(
   selectNotesFeature,
   (notes) => notes.showAddEditNoteToast

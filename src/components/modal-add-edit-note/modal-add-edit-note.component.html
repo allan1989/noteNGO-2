@@ -32,9 +32,9 @@
           </div>
           <div class="mt-2 d-flex justify-content-between">
             <button *ngIf="(isAddMode$ | async)" (click)="onSubmitCreateNewNote()" type="button"
-              class="btn btn-primary mt-2">Submit Create</button>
+              class="btn btn-primary mt-2">Submit</button>
             <button *ngIf="!(isAddMode$ | async)" (click)="onSubmitUpdateNote()" type="button"
-              class="btn btn-primary mt-2">Submit Update</button>
+              class="btn btn-primary mt-2">Submit</button>
             <button (click)="hideModal()" type="button" class="btn btn-danger mt-2">Annuler</button>
           </div>
         </form>

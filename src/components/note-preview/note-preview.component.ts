@@ -6,7 +6,6 @@ import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { State } from '../../app/reducers/index'
 import { selectNotesByPriority } from 'src/app/reducers/selectors/selectors';
-import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 
 @Component({
   selector: 'app-note-preview',
@@ -16,7 +15,7 @@ import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 export class NotePreviewComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
-  notes$: Observable<INote[]>;
+  public notes$: Observable<INote[]>;
   public selected: number;
 
   constructor(
@@ -26,12 +25,10 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.selected = params.id;
       this.notes$ = this.store.pipe(select(selectNotesByPriority(params.priority)))
     });
-
   }
 
   showDeleteNoteModal(id: number) {
