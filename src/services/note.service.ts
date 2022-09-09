@@ -9,7 +9,7 @@ import {
   getNoteId,
   hideAddEditNoteToast,
   showAddEditNoteToast,
-  setFromMode
+  setFormMode
 } from 'src/app/reducers/actions/actions';
 import { Store } from '@ngrx/store';
 import { State } from '../app/reducers/index';
@@ -47,7 +47,7 @@ export class NoteService {
   showAddEditModalForUpdating(id: number) {
     this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
     this.store.dispatch(getNoteId({ selectedNoteId: id }));
-    this.store.dispatch(setFromMode({ isAddMode: false }));
+    this.store.dispatch(setFormMode({ isAddMode: false }));
   }
 
   showAddEditModalForCreating() {

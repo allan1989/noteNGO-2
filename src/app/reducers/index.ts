@@ -35,7 +35,7 @@ export const notesReducer = createReducer(
   on(actions.showAddEditNoteModal, (state, { showAddEditNoteModal }) => ({
     ...state, showAddEditNoteModal
   })),
-  on(actions.setFromMode, (state, { isAddMode }) => ({
+  on(actions.setFormMode, (state, { isAddMode }) => ({
     ...state, isAddMode
   })),
   on(actions.addNote, (state, { note }) => ({

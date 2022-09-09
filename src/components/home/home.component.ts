@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { showAddEditNoteModal, setFromMode } from 'src/app/reducers/actions/actions';
+import { showAddEditNoteModal, setFormMode } from 'src/app/reducers/actions/actions';
 import { Observable } from 'rxjs';
 import { removeNoteModal } from 'src/app/reducers/selectors/selectors';
 
@@ -30,6 +30,6 @@ export class HomeComponent implements OnInit {
 
   showAddEditForm() {
     this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
-    this.store.dispatch(setFromMode({ isAddMode: true }));
+    this.store.dispatch(setFormMode({ isAddMode: true }));
   }
 }

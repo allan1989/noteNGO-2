@@ -3,7 +3,7 @@ import { INote } from "src/services/note.model";
 
 
 export const removeNote = createAction(
-  '[ NOTES ] Remove Note',
+  '[ NOTES ] REMOVE NOTE',
   props<{ selectedNoteId: number }>()
 );
 
@@ -12,45 +12,41 @@ export const getNoteId = createAction(
   props<{ selectedNoteId: number }>()
 );
 
-export const removeNoteSuccess = createAction(
-  '[ NOTES ] Remove Note Success'
-);
-
 export const showRemoveNoteModal = createAction(
-  '[ REMOVE NOTE MODAL ] Show Remove Note Modal',
+  '[ NOTES ] SHOW REMOVE NOTE MODAL',
   props<{ selectedNoteId: number, showRemoveNoteModal: boolean }>()
 );
 
 export const hideRemoveNoteModal = createAction(
-  '[ REMOVE NOTE MODAL ] Hide Remove Note Modal',
+  '[ NOTES ] HIDE REMOVE NOTE MODAL',
   props<{ showRemoveNoteModal: boolean }>()
 )
 
 export const addNote = createAction(
-  '[ ADD NOTE ]',
+  '[ NOTES ] ADD NOTE ',
   props<{ note: INote }>()
 )
 
 export const updateNote = createAction(
-  '[ UPDATE NOTE ]',
+  '[ NOTES ] UPDATE NOTE',
   props<{ notes: INote[] }>()
 )
 
 export const showAddEditNoteModal = createAction(
-  '[ ADD/EDIT NOTE MODAL ]',
+  '[ NOTES ] ADD/EDIT NOTE MODAL',
   props<{ showAddEditNoteModal: boolean }>()
 )
 
-export const setFromMode = createAction(
-  '[ ADD/EDIT NOTE MODAL MODE ]',
+export const setFormMode = createAction(
+  '[ NOTES ] SET MODAL MODE',
   props<{ isAddMode: boolean }>()
 )
 
 export const showAddEditNoteToast = createAction(
-  '[ SHOW NOTE TOAST ]',
+  '[ NOTES ] SHOW ADD/EDIT TOAST',
   props<{ showAddEditNoteToast: boolean }>()
 )
 
 export const hideAddEditNoteToast = createAction(
-  '[ HIDE NOTE TOAST ]'
+  '[ NOTES ] HIDE ADD/EDIT TOAST'
 )
