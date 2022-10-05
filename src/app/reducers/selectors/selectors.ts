@@ -1,31 +1,30 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { INote } from "src/services/note.model";
-import { State } from "../index";
+import { INote, IState } from "src/services/note.model";
 
 // constant to get 'notes' level state object
 export const featureKey = 'notes';
 
 // access to get level state key 'notes' from global state
-export const selectNotesFeature = createFeatureSelector<State>(featureKey);
+export const selectNotesFeature = createFeatureSelector<IState>(featureKey);
 
 // get all notes from state
 // return an array of objects (INote)
 export const selectNotes = createSelector(
   selectNotesFeature,
-  (state: State) => state.data
+  (state: IState) => state.data
 );
 
 // show or hide remove note modal
 // return an boolean
 export const removeNoteModal = createSelector(
   selectNotesFeature,
-  (state: State) => state.showRemoveNoteModal
+  (state: IState) => state.showRemoveNoteModal
 );
 
 // return the note selected
 export const selectedNoteId = createSelector(
   selectNotesFeature,
-  (state: State) => state.selectedNoteId
+  (state: IState) => state.selectedNoteId
 )
 
 // filter notes by priority

@@ -3,18 +3,9 @@ import {
   on
 } from '@ngrx/store';
 import * as actions from '../reducers/actions/actions';
-import { INote } from 'src/services/note.model';
+import { IState } from 'src/services/note.model';
 
-export interface State {
-  data: INote[],
-  showRemoveNoteModal: boolean,
-  selectedNoteId: number,
-  showAddEditNoteModal: boolean,
-  isAddMode: boolean,
-  showAddEditNoteToast: boolean
-}
-
-export const Initialstate: State = {
+const Initialstate: IState = {
   showRemoveNoteModal: false,
   selectedNoteId: 0,
   showAddEditNoteModal: false,

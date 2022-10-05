@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NoteService } from 'src/services/note.service';
-import { INote } from 'src/services/note.model';
+import { INote, IState } from 'src/services/note.model';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { State } from '../../app/reducers/index'
 import { selectNotesByPriority } from 'src/app/reducers/selectors/selectors';
 
 @Component({
@@ -21,7 +20,7 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private noteService: NoteService,
-    private store: Store<State>
+    private store: Store<IState>
   ) { }
 
   ngOnInit(): void {

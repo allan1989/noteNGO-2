@@ -12,7 +12,7 @@ import {
   setFormMode
 } from 'src/app/reducers/actions/actions';
 import { Store } from '@ngrx/store';
-import { State } from '../app/reducers/index';
+import { IState } from './note.model';
 import { INote } from './note.model';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -22,7 +22,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class NoteService {
 
   constructor(
-    private store: Store<State>,
+    private store: Store<IState>,
     private router: Router,
     private route: ActivatedRoute
   ) { }

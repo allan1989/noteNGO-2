@@ -1,7 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { INote } from "src/services/note.model";
 
-
 export const removeNote = createAction(
   '[ NOTES ] REMOVE NOTE',
   props<{ selectedNoteId: number }>()
