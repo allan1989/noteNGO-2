@@ -25,7 +25,7 @@ export class ModalAddEditNoteComponent implements OnInit {
   public isAddMode$: Observable<boolean>;
 
   public noteForm!: FormGroup;
-  public submitted: boolean = false;
+  public submitted = false;
   public currentNote: Observable<INote[]>;
 
   public currentNotes: INote[];
@@ -90,7 +90,7 @@ export class ModalAddEditNoteComponent implements OnInit {
     }
   }
 
-  updateNote(): void {
+  updateNote() {
     this.currentNotes = this.currentNotes.map(
       note => {
         if (note.id === this.currentNoteId) {
