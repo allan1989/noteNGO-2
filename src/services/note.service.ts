@@ -9,7 +9,9 @@ import {
   getNoteId,
   hideAddEditNoteToast,
   showAddEditNoteToast,
-  setFormMode
+  setFormMode,
+  selectedNote,
+  updatedNote
 } from 'src/app/reducers/actions/actions';
 import { Store } from '@ngrx/store';
 import { IState } from './note.model';
@@ -27,8 +29,8 @@ export class NoteService {
     private route: ActivatedRoute
   ) { }
 
-  showDeleteNoteModal(id: number) {
-    this.store.dispatch(showRemoveNoteModal({ selectedNoteId: id, showRemoveNoteModal: true }))
+  showDeleteNoteModal() {
+    this.store.dispatch(showRemoveNoteModal({ showRemoveNoteModal: true }))
   }
 
   hideDeleteNoteModal() {
@@ -44,10 +46,11 @@ export class NoteService {
     this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
   }
 
-  showAddEditModalForUpdating(id: number) {
-    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
-    this.store.dispatch(getNoteId({ selectedNoteId: id }));
+  showAddEditModalForUpdating(note: INote) {
+    this.store.dispatch(selectedNote({ selectedNote: [note] }));
+    this.store.dispatch(getNoteId({ selectedNoteId: note.id }))
     this.store.dispatch(setFormMode({ isAddMode: false }));
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
   }
 
   showAddEditModalForCreating() {
@@ -65,11 +68,12 @@ export class NoteService {
     )
   }
 
-  updateNote(notesArr: INote[]) {
-    this.store.dispatch(updateNote({ notes: notesArr }));
+  updateNote(note: INote) {
     this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: false }));
     this.store.dispatch(showAddEditNoteToast({ showAddEditNoteToast: true }));
-    this.router.navigate([`notes/${notesArr[0].priority}`], { relativeTo: this.route })
+    this.store.dispatch(updatedNote({ updatedNote: [note] }));
+    this.store.dispatch(updateNote());
+    this.router.navigate([`notes/${note.priority}`], { relativeTo: this.route })
     setTimeout(
       () => this.store.dispatch(hideAddEditNoteToast()),
       2000

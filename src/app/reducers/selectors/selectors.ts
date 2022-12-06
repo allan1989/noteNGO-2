@@ -21,7 +21,7 @@ export const removeNoteModal = createSelector(
   (state: IState) => state.showRemoveNoteModal
 );
 
-// return the note selected
+// return the id of the note selected
 export const selectedNoteId = createSelector(
   selectNotesFeature,
   (state: IState) => state.selectedNoteId

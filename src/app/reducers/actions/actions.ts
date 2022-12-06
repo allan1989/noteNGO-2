@@ -11,9 +11,19 @@ export const getNoteId = createAction(
   props<{ selectedNoteId: number }>()
 );
 
+export const selectedNote = createAction(
+  '[ NOTES ] UPDATE NOTE SELECTED NOTE',
+  props<{ selectedNote: INote[] }>()
+);
+
+export const updatedNote = createAction(
+  '[ NOTES ] UPDATE NOTE UPDATED NOTE',
+  props<{ updatedNote: INote[] }>()
+);
+
 export const showRemoveNoteModal = createAction(
   '[ NOTES ] SHOW REMOVE NOTE MODAL',
-  props<{ selectedNoteId: number, showRemoveNoteModal: boolean }>()
+  props<{ showRemoveNoteModal: boolean }>()
 );
 
 export const hideRemoveNoteModal = createAction(
@@ -27,8 +37,7 @@ export const addNote = createAction(
 )
 
 export const updateNote = createAction(
-  '[ NOTES ] UPDATE NOTE',
-  props<{ notes: INote[] }>()
+  '[ NOTES ] UPDATE NOTE'
 )
 
 export const showAddEditNoteModal = createAction(

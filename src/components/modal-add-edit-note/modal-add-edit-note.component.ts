@@ -91,22 +91,15 @@ export class ModalAddEditNoteComponent implements OnInit {
   }
 
   updateNote() {
-    this.currentNotes = this.currentNotes.map(
-      note => {
-        if (note.id === this.currentNoteId) {
-          return {
-            title: this.noteForm.value.title,
-            body: this.noteForm.value.body,
-            priority: this.noteForm.value.priority,
-            id: this.currentNoteId
-          }
-        } else {
-          return note
-        }
-      }
-    )
+    let n = {
+      title: this.noteForm.value.title,
+      body: this.noteForm.value.body,
+      priority: this.noteForm.value.priority,
+      id: this.currentNoteId
+    }
     this.noteForm.reset();
-    this.noteService.updateNote(this.currentNotes);
+    this.noteService.updateNote(n);
+    console.log(this.noteForm.status)
   }
 
   patchFormFields() {

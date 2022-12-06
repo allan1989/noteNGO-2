@@ -3,21 +3,23 @@ import {
   on
 } from '@ngrx/store';
 import * as actions from '../reducers/actions/actions';
-import { IState } from 'src/services/note.model';
+import { IState, INote } from 'src/services/note.model';
 
-const Initialstate: IState = {
+export const Initialstate: IState = {
   showRemoveNoteModal: false,
   selectedNoteId: 0,
   showAddEditNoteModal: false,
   isAddMode: true,
   showAddEditNoteToast: false,
-  data: []
+  data: [],
+  selectedNote: [],
+  updatedNote: []
 }
 
 export const notesReducer = createReducer(
   Initialstate,
-  on(actions.showRemoveNoteModal, (state, { selectedNoteId, showRemoveNoteModal }) => ({
-    ...state, selectedNoteId, showRemoveNoteModal
+  on(actions.showRemoveNoteModal, (state, { showRemoveNoteModal }) => ({
+    ...state, showRemoveNoteModal
   })),
   on(actions.hideRemoveNoteModal, (state, { showRemoveNoteModal }) => ({ ...state, showRemoveNoteModal })),
   on(actions.removeNote, (state, { selectedNoteId }) => ({
@@ -32,8 +34,24 @@ export const notesReducer = createReducer(
   on(actions.addNote, (state, { note }) => ({
     ...state, data: [...state.data].concat(note)
   })),
-  on(actions.updateNote, (state, { notes }) => ({
-    ...state, data: notes
+  on(actions.updateNote, (state) => ({
+    ...state, data: [
+      ...state.data.map(
+        (note) => {
+          if (note['id'] === state.updatedNote[0].id) {
+            return {
+              title: state.updatedNote[0].title,
+              body: state.updatedNote[0].body,
+              priority: state.updatedNote[0].priority,
+              id: note['id']
+            }
+          }
+          else {
+            return note
+          }
+        }
+      )
+    ]
   })),
   on(actions.getNoteId, (state, { selectedNoteId }) => ({
     ...state, selectedNoteId
@@ -43,5 +61,11 @@ export const notesReducer = createReducer(
   })),
   on(actions.hideAddEditNoteToast, (state) => ({
     ...state, showAddEditNoteToast: false
-  }))
+  })),
+  on(actions.selectedNote, (state, { selectedNote }) => ({
+    ...state, selectedNote
+  })),
+  on(actions.updatedNote, (state, { updatedNote }) => ({
+    ...state, updatedNote
+  })),
 )

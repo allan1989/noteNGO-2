@@ -31,15 +31,15 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
   }
 
   showDeleteNoteModal(id: number) {
-    this.noteService.showDeleteNoteModal(id);
+    this.noteService.showDeleteNoteModal();
   }
 
   handleSelectedNote(note: INote) {
     this.selected = note.id;
   }
 
-  showAddEditModal(id: number) {
-    this.noteService.showAddEditModalForUpdating(id);
+  showAddEditModal(note: INote) {
+    this.noteService.showAddEditModalForUpdating(note);
   }
 
   ngOnDestroy() {

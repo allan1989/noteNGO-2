@@ -11,5 +11,7 @@ export interface IState {
   selectedNoteId: number,
   showAddEditNoteModal: boolean,
   isAddMode: boolean,
-  showAddEditNoteToast: boolean
+  showAddEditNoteToast: boolean,
+  selectedNote: INote[],
+  updatedNote: INote[]
 }

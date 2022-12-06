@@ -20,7 +20,7 @@
           </div>
           <div class="form-group">
             <label for="priority">Priorité :</label>
-            <select [ngClass]="{'is-invalid': submitted && noteForm.controls.priority?.errors}"
+            <select [ngClass]="{'is-invalid': submitted && noteForm.controls.priority.errors}"
               formControlName="priority" class="form-control" id="priority">
               <option value="haute">Haute</option>
               <option value="elevee">Elevée</option>
