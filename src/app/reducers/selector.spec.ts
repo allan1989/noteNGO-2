@@ -1,7 +1,7 @@
 import * as fromSelectors from './selectors/selectors';
 import { INote, IState } from "src/services/note.model";
 
-fdescribe('Selectors', () => {
+describe('Selectors', () => {
 
     let initialstate: IState;
     let dummyData: INote[] = [

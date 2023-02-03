@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   public showRemoveNoteModal$: Observable<boolean>;
 
   ngOnInit(): void {
-    this.showRemoveNoteModal$ = this.store.pipe(select(removeNoteModal))
+    this.showRemoveNoteModal$ = this.store.pipe(select(removeNoteModal));
   }
 
   showAddEditForm() {
