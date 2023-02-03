@@ -1,7 +1,6 @@
 import * as fromReducer from './index';
 import * as actions from './actions/actions';
-import { IState, INote } from 'src/services/note.model';
-import { NoteService } from 'src/services/note.service';
+import { IState } from 'src/services/note.model';
 
 describe('NotesReducer', () => {
     let initialstate: IState;
@@ -186,9 +185,4 @@ describe('NotesReducer', () => {
         expect(state.data.length).toEqual(2);
         expect(state.data).toContain(editedNote);
     })
-
-
-
-
-
 });

@@ -99,7 +99,6 @@ export class ModalAddEditNoteComponent implements OnInit {
     }
     this.noteForm.reset();
     this.noteService.updateNote(n);
-    console.log(this.noteForm.status)
   }
 
   patchFormFields() {

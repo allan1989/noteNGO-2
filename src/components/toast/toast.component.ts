@@ -11,7 +11,7 @@ import { showAddEditNoteToast, AddEditNoteModalMode } from 'src/app/reducers/sel
 export class ToastComponent implements OnInit {
 
   public isToastVisible$: Observable<boolean>;
-  public isAddMode: Observable<boolean>;
+  public isAddMode$: Observable<boolean>;
 
   constructor(
     private store: Store
@@ -19,7 +19,7 @@ export class ToastComponent implements OnInit {
 
   ngOnInit(): void {
     this.isToastVisible$ = this.store.pipe(select(showAddEditNoteToast));
-    this.isAddMode = this.store.pipe(select(AddEditNoteModalMode));
+    this.isAddMode$ = this.store.pipe(select(AddEditNoteModalMode));
   }
 
 }

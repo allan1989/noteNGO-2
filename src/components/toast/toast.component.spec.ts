@@ -1,9 +1,9 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToastComponent } from './toast.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Initialstate } from '../../app/reducers/index';
-import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
-
+import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
@@ -28,9 +28,23 @@ describe('ToastComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create Toast component ', fakeAsync(() => {
-    store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
-    tick();
+  it('should create Toast component ', () => {
     expect(component).toBeTruthy();
-  }));
+  });
+
+  it('should render text - La note a été ajoutée !', () => {
+    component.isToastVisible$ = of(true);
+    component.isAddMode$ = of(true);
+    fixture.detectChanges();
+    const text = fixture.debugElement.query(By.css('div')).nativeElement.innerText;
+    expect(text).toEqual('La note a été ajoutée !');
+  });
+
+  it('should render text - La note a été modifiée !', () => {
+    component.isToastVisible$ = of(true);
+    component.isAddMode$ = of(false);
+    fixture.detectChanges();
+    const text = fixture.debugElement.query(By.css('div')).nativeElement.innerText;
+    expect(text).toEqual('La note a été modifiée !');
+  })
 });

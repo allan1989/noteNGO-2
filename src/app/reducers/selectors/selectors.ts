@@ -74,7 +74,7 @@ export const AddEditNoteModalMode = createSelector(
 // return a boolean
 export const showAddEditNoteToast = createSelector(
   selectNotesFeature,
-  (notes) => notes.showAddEditNoteToast
+  (notes) => notes?.showAddEditNoteToast
 )
 
 // get id when editing a note
@@ -82,3 +82,5 @@ export const getSelectedNoteId = createSelector(
   selectNotesFeature,
   (notes) => notes.selectedNoteId
 )
+
+// This way the property won't be read until it is available if indeed, it ever comes available.
