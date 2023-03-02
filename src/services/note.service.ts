@@ -29,7 +29,12 @@ export class NoteService {
     private route: ActivatedRoute
   ) { }
 
-  showDeleteNoteModal() {
+  showAddEditForm() {
+    this.store.dispatch(showAddEditNoteModal({ showAddEditNoteModal: true }));
+    this.store.dispatch(setFormMode({ isAddMode: true }));
+  }
+
+  showRemoveNoteModal() {
     this.store.dispatch(showRemoveNoteModal({ showRemoveNoteModal: true }))
   }
 

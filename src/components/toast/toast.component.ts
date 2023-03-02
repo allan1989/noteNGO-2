@@ -21,5 +21,4 @@ export class ToastComponent implements OnInit {
     this.isToastVisible$ = this.store.pipe(select(showAddEditNoteToast));
     this.isAddMode$ = this.store.pipe(select(AddEditNoteModalMode));
   }
-
 }

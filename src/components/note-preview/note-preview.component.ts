@@ -31,7 +31,7 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
   }
 
   showDeleteNoteModal(id: number) {
-    this.noteService.showDeleteNoteModal();
+    this.noteService.showRemoveNoteModal();
   }
 
   handleSelectedNote(note: INote) {

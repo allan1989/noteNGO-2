@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ToastComponent } from './toast.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Initialstate } from '../../app/reducers/index';
@@ -31,6 +31,17 @@ describe('ToastComponent', () => {
   it('should create Toast component ', () => {
     expect(component).toBeTruthy();
   });
+
+  it('create Store dependency', () => {
+    expect(store).toBeTruthy();
+  });
+
+  it('defines the values of isToastVisible$ and isAddMode$ on ngOnInit', (() => {
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.isToastVisible$).toBeDefined();
+    expect(component.isAddMode$).toBeDefined();
+  }))
 
   it('should render text - La note a été ajoutée !', () => {
     component.isToastVisible$ = of(true);

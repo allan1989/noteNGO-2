@@ -1,30 +1,33 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Initialstate } from 'src/app/reducers';
 import { HomeComponent } from './home.component';
 import { Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { NoteService } from 'src/services/note.service';
+import { provideMockStore } from '@ngrx/store/testing';
+import { Initialstate } from 'src/app/reducers';
 
-fdescribe('HomeComponent', () => {
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let router: Router;
-  let store: MockStore;
+  let service: NoteService;
   const initialState = Initialstate;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomeComponent],
       providers: [
-        provideMockStore({ initialState })
+        { provide: NoteService },
+        provideMockStore({ initialState }),
+
       ],
       imports: [RouterTestingModule.withRoutes([])],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
-    store = TestBed.inject(MockStore);
+    service = TestBed.inject(NoteService);
     router = TestBed.inject(Router);
   });
 
@@ -36,6 +39,18 @@ fdescribe('HomeComponent', () => {
 
   it('creates component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('creates NoteService', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('creates Route dependency', () => {
+    expect(router).toBeTruthy();
+  })
+
+  it('contains the property Priorities with 4 levels', () => {
+    expect(component.priorities.length).toBe(4);
   });
 
   it('renders the left panel with the 4 priorities', () => {
@@ -58,4 +73,19 @@ fdescribe('HomeComponent', () => {
     expect(removeNoteComponent).toBeTruthy();
   });
 
+  it('invokes component method showAddEditForm when click on button', () => {
+    spyOn(component, 'showAddEditForm');
+    component.showAddEditForm();
+    expect(component.showAddEditForm).toHaveBeenCalled();
+  })
+
+  it('renders the form when clicking the button', () => {
+    const serviceSpy = spyOn(service, 'showAddEditForm');
+    const button = fixture.debugElement.query(By.css('.btn'));
+    button.triggerEventHandler('click', {});
+    fixture.detectChanges();
+    expect(serviceSpy).toHaveBeenCalled();
+    const modal = fixture.debugElement.query(By.css('app-modal-add-edit-note'));
+    expect(modal).toBeTruthy();
+  })
 });
