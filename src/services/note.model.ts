@@ -15,3 +15,17 @@ export interface IState {
   selectedNote: INote[],
   updatedNote: INote[]
 }
+
+export enum PrioritiesListLabel {
+  HAUTE = 'Haute',
+  ELEVEE = 'Elevée',
+  MOYENNE = 'Moyenne',
+  BASSE = 'Basse'
+}
+
+export enum PrioritiesListValue {
+  HAUTE = 'haute',
+  ELEVEE = 'elevee',
+  MOYENNE = 'moyenne',
+  BASSE = 'basse'
+}

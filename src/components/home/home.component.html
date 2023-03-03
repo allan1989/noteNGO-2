@@ -15,23 +15,25 @@
         <p>Priorités: </p>
         <div class="list-group">
           <li class="list-group-item p-0">
-            <a [routerLink]="['/notes', 'haute']" [ngClass]="{'bg-light': this.router.url.includes('haute')}"
-              style="height: 78px;" class="d-block text-decoration-none 
+            <a [routerLink]="['/notes', priorities.HAUTE]"
+              [ngClass]="{'bg-light': this.router.url.includes(priorities.HAUTE)}" style="height: 78px;" class="d-block text-decoration-none 
               list-group-item-action px-2 py-2">{{ 'Haute' }}</a>
           </li>
           <li class="list-group-item p-0">
-            <a [routerLink]="['/notes', 'elevee']" [ngClass]="{'bg-light': this.router.url.includes('elevee')}"
-              style="height: 78px;" class="d-block text-decoration-none list-group-item-action px-2 
+            <a [routerLink]="['/notes', priorities.ELEVEE]"
+              [ngClass]="{'bg-light': this.router.url.includes(priorities.ELEVEE)}" style="height: 78px;" class="d-block text-decoration-none list-group-item-action px-2 
               py-2">{{ 'Elevée' }}</a>
           </li>
           <li class="list-group-item p-0">
-            <a [routerLink]="['/notes', 'moyenne']" [ngClass]="{'bg-light': this.router.url.includes('moyenne')}"
-              style="height: 78px;" class="d-block text-decoration-none list-group-item-action px-2 py-2">{{ 'Moyenne'
+            <a [routerLink]="['/notes', priorities.MOYENNE]"
+              [ngClass]="{'bg-light': this.router.url.includes(priorities.MOYENNE)}" style="height: 78px;"
+              class="d-block text-decoration-none list-group-item-action px-2 py-2">{{ 'Moyenne'
               }}</a>
           </li>
           <li class="list-group-item p-0">
-            <a [routerLink]="['/notes', 'basse']" [ngClass]="{'bg-light': this.router.url.includes('basse')}"
-              style="height: 78px;" class="d-block text-decoration-none list-group-item-action px-2 py-2">{{ 'Basse'
+            <a [routerLink]="['/notes', priorities.BASSE]"
+              [ngClass]="{'bg-light': this.router.url.includes(priorities.BASSE)}" style="height: 78px;"
+              class="d-block text-decoration-none list-group-item-action px-2 py-2">{{ 'Basse'
               }}</a>
           </li>
         </div>

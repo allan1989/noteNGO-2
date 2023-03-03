@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import { showAddEditNoteModal, setFormMode } from 'src/app/reducers/actions/actions';
-import { Observable } from 'rxjs';
-import { removeNoteModal } from 'src/app/reducers/selectors/selectors';
 import { NoteService } from 'src/services/note.service';
+import { PrioritiesListValue } from 'src/services/note.model';
 
 @Component({
   selector: 'app-home',
@@ -13,16 +10,12 @@ import { NoteService } from 'src/services/note.service';
 })
 export class HomeComponent {
 
+  public priorities = PrioritiesListValue;
+
   constructor(
     public router: Router,
     public noteService: NoteService
   ) { }
-  priorities = [
-    { level: 'Haute', routeName: 'haute' },
-    { level: 'Elevee', routeName: 'elevee' },
-    { level: 'Moyenne', routeName: 'moyenne' },
-    { level: 'Basse', routeName: 'basse' }
-  ]
 
   showAddEditForm() {
     this.noteService.showAddEditForm();

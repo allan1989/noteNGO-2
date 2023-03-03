@@ -8,7 +8,7 @@ import { NoteService } from 'src/services/note.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Initialstate } from 'src/app/reducers';
 
-describe('HomeComponent', () => {
+fdescribe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let router: Router;
@@ -47,10 +47,12 @@ describe('HomeComponent', () => {
 
   it('creates Route dependency', () => {
     expect(router).toBeTruthy();
-  })
+  });
 
-  it('contains the property Priorities with 4 levels', () => {
-    expect(component.priorities.length).toBe(4);
+  it('defines the properties priorities', () => {
+    const enumLength = Object.keys(component.priorities);
+    expect(component.priorities).toBeDefined();
+    expect(enumLength.length).toEqual(4);
   });
 
   it('renders the left panel with the 4 priorities', () => {

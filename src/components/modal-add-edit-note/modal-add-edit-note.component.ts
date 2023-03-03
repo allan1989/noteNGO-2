@@ -12,6 +12,7 @@ import { INote } from 'src/services/note.model';
 import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NoteService } from 'src/services/note.service';
+import { PrioritiesListLabel, PrioritiesListValue } from 'src/services/note.model';
 
 @Component({
   selector: 'app-modal-add-edit-note',
@@ -30,6 +31,9 @@ export class ModalAddEditNoteComponent implements OnInit {
 
   public currentNotes: INote[];
   public currentNoteId: number;
+
+  public prioritiesListLabel = PrioritiesListLabel;
+  public prioritiesListValue = PrioritiesListValue;
 
   constructor(
     private store: Store,
@@ -69,7 +73,7 @@ export class ModalAddEditNoteComponent implements OnInit {
     )
   }
 
-  public noWhitespaceValidator(control: FormControl) {
+  noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true };
