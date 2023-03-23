@@ -5,43 +5,52 @@
 // import { Initialstate } from 'src/app/reducers';
 // import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 // import { ReactiveFormsModule } from '@angular/forms';
+// import { Router } from '@angular/router';
 // import { of } from 'rxjs';
+// import { RouterTestingModule } from '@angular/router/testing';
+// import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 
-// describe('ModalAddEditNoteComponent', () => {
-//   let component: ModalAddEditNoteComponent;
-//   let fixture: ComponentFixture<ModalAddEditNoteComponent>;
-//   let store: MockStore;
-//   let service: NoteService;
-//   const initialState = Initialstate;
+// fdescribe('ModalAddEditNoteComponent', () => {
+//     let component: ModalAddEditNoteComponent;
+//     let fixture: ComponentFixture<ModalAddEditNoteComponent>;
+//     let store: MockStore;
+//     let router: Router;
+//     let service: NoteService;
+//     const initialState = Initialstate;
 
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       declarations: [ModalAddEditNoteComponent],
-//       providers: [
+//     beforeEach(async () => {
+//         await TestBed.configureTestingModule({
+//             declarations: [ModalAddEditNoteComponent],
+//             providers: [
+//                 { provide: NoteService },
+//                 provideMockStore({
+//                     initialState
+//                 }),
 
-//         provideMockStore({ initialState }),
+//             ],
+//             imports: [ReactiveFormsModule, RouterTestingModule.withRoutes([])],
+//             schemas: [CUSTOM_ELEMENTS_SCHEMA]
+//         })
+//             .compileComponents();
+//         service = TestBed.inject(NoteService)
+//         store = TestBed.inject(MockStore)
+//         router = TestBed.inject(Router);
+//     });
 
-//       ],
-//       imports: [ReactiveFormsModule],
-//       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-//     })
-//       .compileComponents();
-//     service = TestBed.inject(NoteService)
-//     store = TestBed.inject(MockStore)
-//   });
+//     beforeEach(() => {
+//         fixture = TestBed.createComponent(ModalAddEditNoteComponent);
+//         component = fixture.componentInstance;
+//         fixture.detectChanges();
+//     });
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(ModalAddEditNoteComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+//     xit('create component', () => {
+//         component.showAddEditNoteModal$ = of(true);
+//         fixture.detectChanges()
+//         expect(component).toBeTruthy();
+//     });
 
-//   it('create component', () => {
+//     it('creates NoteService', () => {
 
-//     expect(component).toBeTruthy();
-//   });
-
-//   it('creates NoteService', () => {
-//     expect(service).toBeTruthy();
-//   });
+//         expect(service).toBeTruthy();
+//     });
 // });

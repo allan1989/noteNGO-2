@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from 'src/components/header/header.component';
 import { HomeModule } from 'src/components/home/home.module';
 import { StoreModule } from '@ngrx/store';
 import { notesReducer } from './reducers';
@@ -10,8 +9,7 @@ import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

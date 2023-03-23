@@ -5,7 +5,7 @@ import {
   addEditNoteModal,
   AddEditNoteModalMode,
   getSelectedNoteId
-} from 'src/app/reducers/selectors/selectors';
+} from '../../app/reducers/selectors/selectors';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { INote } from 'src/services/note.model';

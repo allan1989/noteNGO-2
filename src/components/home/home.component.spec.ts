@@ -8,7 +8,7 @@ import { NoteService } from 'src/services/note.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Initialstate } from 'src/app/reducers';
 
-fdescribe('HomeComponent', () => {
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let router: Router;
